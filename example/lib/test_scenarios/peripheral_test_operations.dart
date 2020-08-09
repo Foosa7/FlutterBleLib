@@ -227,6 +227,8 @@ class PeripheralTestOperations {
               SensorTagTemperatureUuids.temperatureConfigCharacteristic
                   .toLowerCase());
       Uint8List currentValue = await characteristic.read();
+      
+      // Input to service
       int valueToSave;
       if (currentValue[0] == 0) {
         log("Turning on temperature update via characteristic");
@@ -246,8 +248,8 @@ class PeripheralTestOperations {
       _startMonitoringTemperature(
           peripheral
               .monitorCharacteristic(
-                  SensorTagTemperatureUuids.temperatureService,
-                  SensorTagTemperatureUuids.temperatureDataCharacteristic,
+                  SensorTagTemperatureUuids.temperatureService, // Main UUID
+                  SensorTagTemperatureUuids.temperatureDataCharacteristic, // Service UUID
                   transactionId: "monitor")
               .map((characteristic) => characteristic.value),
           log);
